@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: notification-service
+
+  config:
+    import: "aws-parameterstore:/notification-service/"
+
+aws:
+  dynamodb:
+    table-name: NOTIFICATION
+
+  sns:
+    topic-arn: arn:aws:sns:us-east-1:ACCOUNT:notification-topic
+
+  sqs:
+    notification-queue: notification-queue
+
+twilio:
+  account-sid: ${/notification-service/twilio/account-sid}
+  auth-token: ${/notification-service/twilio/auth-token}
+  recipient-number: ${/notification-service/twilio/recipient-number}
+  sender-number: whatsapp:+14155238886
