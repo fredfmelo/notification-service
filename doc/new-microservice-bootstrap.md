@@ -8,7 +8,7 @@ Use this guide to spin up another Spring Boot microservice that reuses the same 
 
 ## What to copy vs what to replace
 
-| Keep (generic) | Replace per service |
+| Keep (generic) | Replace per service 
 |----------------|---------------------|
 | `config/AwsConfig.java` | `pom.xml` `artifactId`, `name`, `description` |
 | `config/ServiceConfig.java` (structure; trim/add AWS props) | Root package (`com.fredfmelo.orderservice` → `com.fredfmelo.<service>`) |
