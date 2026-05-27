@@ -8,7 +8,7 @@ public class BusinessException extends RuntimeException {
     @NonNull
     private final HttpStatus status;
 
-    public BusinessException(String message) {
+    public BusinessException(String message){
         super(message);
         this.status = HttpStatus.UNPROCESSABLE_ENTITY;
     }
@@ -22,4 +22,6 @@ public class BusinessException extends RuntimeException {
     public HttpStatus getStatus() {
         return status;
     }
+    
+
 }

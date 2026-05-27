@@ -18,7 +18,6 @@ public class ServiceConfig {
     @Getter
     @Setter
     public static class Aws {
-
         private DynamoDb dynamodb;
         private Sns sns;
         private Sqs sqs;
@@ -27,28 +26,24 @@ public class ServiceConfig {
     @Getter
     @Setter
     public static class DynamoDb {
-
         private String tableName;
     }
 
     @Getter
     @Setter
     public static class Sns {
-
         private String topicArn;
     }
 
     @Getter
     @Setter
     public static class Sqs {
-
         private String notificationQueue;
     }
 
     @Getter
     @Setter
     public static class Twilio {
-
         private String accountSid;
         private String authToken;
         private String senderNumber;
