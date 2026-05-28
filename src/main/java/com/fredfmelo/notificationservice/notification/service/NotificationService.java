@@ -29,7 +29,12 @@ public class NotificationService {
     public void notifyInventoryReserved(InventoryReservedEvent event) {
         log.info("[EMAIL] Preparing shipment order={}", event.orderId());
 
-        //todo: implement client base and send to the correct number
-        whatsappService.send(String.format("Your order id %s was concluded!", event.orderId()), serviceConfig.getTwilio().getRecipientNumber());
+        // todo: implement client base and send to the correct number
+        try {
+            whatsappService.send(String.format("Your order id %s was concluded!", event.orderId()),
+                    serviceConfig.getTwilio().getRecipientNumber());
+        } catch (Exception ex) {
+            log.error("An error ocurred while trying to send whatsapp notification", ex);
+        }
     }
 }
