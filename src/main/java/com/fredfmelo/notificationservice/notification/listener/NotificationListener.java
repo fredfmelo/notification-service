@@ -4,8 +4,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fredfmelo.notificationservice.common.exception.TechnicalException;
-import com.fredfmelo.notificationservice.idempotency.executor.IdempotentExecutor;
+import com.fredfmelo.eventdrivencore.exception.TechnicalException;
+import com.fredfmelo.eventdrivencore.idempotency.executor.IdempotentExecutor;
 import com.fredfmelo.notificationservice.notification.event.InventoryReservedEvent;
 import com.fredfmelo.notificationservice.notification.event.NotificationEventType;
 import com.fredfmelo.notificationservice.notification.event.OrderCreatedEvent;
@@ -32,7 +32,7 @@ public class NotificationListener {
 
             switch (eventType) {
                 case ORDER_CREATED -> {
-                    OrderCreatedEvent event = objectMapper.readValue(message,OrderCreatedEvent.class);
+                    OrderCreatedEvent event = objectMapper.readValue(message, OrderCreatedEvent.class);
 
                     idempotentExecutor.execute(event, () -> notificationService.notifyOrderCreated(event));
                 }
@@ -40,11 +40,11 @@ public class NotificationListener {
                 case PAYMENT_APPROVED -> {
                     PaymentApprovedEvent event = objectMapper.readValue(message, PaymentApprovedEvent.class);
 
-                    idempotentExecutor.execute(event, () -> notificationService .notifyPaymentApproved(event));
+                    idempotentExecutor.execute(event, () -> notificationService.notifyPaymentApproved(event));
                 }
 
                 case INVENTORY_RESERVED -> {
-                   InventoryReservedEvent event = objectMapper.readValue(message,InventoryReservedEvent.class);
+                    InventoryReservedEvent event = objectMapper.readValue(message, InventoryReservedEvent.class);
 
                     idempotentExecutor.execute(event, () -> notificationService.notifyInventoryReserved(event));
                 }
@@ -57,8 +57,8 @@ public class NotificationListener {
 
     private NotificationEventType extractEventType(String message) throws JsonProcessingException {
         String eventType = objectMapper.readTree(message)
-                        .get("eventType")
-                        .asText();
+                .get("eventType")
+                .asText();
 
         return NotificationEventType.fromValue(eventType)
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported eventType=" + eventType));

@@ -3,6 +3,8 @@ package com.fredfmelo.notificationservice.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import com.fredfmelo.eventdrivencore.config.DynamoProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class ServiceConfig {
+public class ServiceConfig implements DynamoProperties {
 
     private Aws aws;
     private Twilio twilio;
@@ -48,5 +50,10 @@ public class ServiceConfig {
         private String authToken;
         private String senderNumber;
         private String recipientNumber;
+    }
+
+    @Override
+    public String tableName() {
+        return aws.getDynamodb().getTableName();
     }
 }
