@@ -2,6 +2,12 @@ spring:
   application:
     name: notification-service
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
   config:
     import: "aws-parameterstore:/notification-service/"
 
