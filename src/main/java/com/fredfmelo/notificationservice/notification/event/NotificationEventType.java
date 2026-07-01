@@ -7,6 +7,7 @@ public enum NotificationEventType {
 
     ORDER_CREATED("ORDER_CREATED"),
     PAYMENT_APPROVED("PAYMENT_APPROVED"),
+    PAYMENT_REFUNDED("PAYMENT_REFUNDED"),
     INVENTORY_RESERVED("INVENTORY_RESERVED");
 
     private final String value;

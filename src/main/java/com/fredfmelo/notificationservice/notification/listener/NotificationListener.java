@@ -10,6 +10,7 @@ import com.fredfmelo.notificationservice.notification.event.InventoryReservedEve
 import com.fredfmelo.notificationservice.notification.event.NotificationEventType;
 import com.fredfmelo.notificationservice.notification.event.OrderCreatedEvent;
 import com.fredfmelo.notificationservice.notification.event.PaymentApprovedEvent;
+import com.fredfmelo.notificationservice.notification.event.PaymentRefundedEvent;
 import com.fredfmelo.notificationservice.notification.service.NotificationService;
 
 import io.awspring.cloud.sqs.annotation.SqsListener;
@@ -41,6 +42,12 @@ public class NotificationListener {
                     PaymentApprovedEvent event = objectMapper.readValue(message, PaymentApprovedEvent.class);
 
                     idempotentExecutor.execute(event, () -> notificationService.notifyPaymentApproved(event));
+                }
+
+                case PAYMENT_REFUNDED -> {
+                    PaymentRefundedEvent event = objectMapper.readValue(message, PaymentRefundedEvent.class);
+
+                    idempotentExecutor.execute(event, () -> notificationService.notifyPaymentRefunded(event));
                 }
 
                 case INVENTORY_RESERVED -> {
